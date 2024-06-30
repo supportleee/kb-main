@@ -13,19 +13,20 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/shipping")
 public class ShippingController {
 
     private final ShippingService shippingService;
 
     // 배송 정보를 확인하는 GET 호출을 생성합니다.  (path : /shipping)
-    @GetMapping("/shipping/{id}")
+    @GetMapping("/{id}")
     public ShippingInfoDto getShippingInfo(@PathVariable Long id) {
         log.info("GET /shipping/{}", id);
         return shippingService.getShippingInfo(id);
     }
 
     // 배송 정보를 생성하는 POST 호출을 생성합니다. (path : /shipping)
-    @PostMapping("/shipping")
+    @PostMapping("/")
     public ShippingInfoDto createShippingInfo(
             @Valid @RequestBody ShippingInfo request
     ) {
@@ -36,7 +37,7 @@ public class ShippingController {
     }
 
     // 배송 Status를 변경하는 PUT 호출을 생성합니다. (path : /shipping)
-    @PutMapping("/shipping/{id}")
+    @PutMapping("/{id}")
     public ShippingInfoDto editShippingInfo(
             @PathVariable Long id, @Valid @RequestBody ShippingInfo request
     ) {
