@@ -26,6 +26,7 @@ public class ShippingService {
                 .orElseThrow();
     }
 
+    @Transactional
     public ShippingInfoDto editShippingInfo(Long id, ShippingInfo request) {
         ShippingInfo shippingInfo = shippingRepository.findById(id).orElseThrow();
         shippingInfo.setStatus(request.getStatus());

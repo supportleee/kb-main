@@ -3,6 +3,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -44,8 +45,9 @@ public class SecurityConfig {
                 // 해당 헤더를 통해 보안을 강화하여 전달할 수 있다.
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                        .ignoringRequestMatchers("/cart/**", "/seller/**", "/check/**", "/actuator/**", "/shipping/**")  // CSRF 보호 비활성화 경로 설정
+                        .ignoringRequestMatchers("/cart/**", "/seller/**", "/check/**", "/actuator/**", "/h2-console/**")  // CSRF 보호 비활성화 경로 설정
                 )
+                .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
         ;
 
         return http.build();
